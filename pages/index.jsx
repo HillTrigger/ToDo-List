@@ -1,7 +1,9 @@
+import { ToDo } from "../components/todo";
+
 export default function HomePage() {
   return (
     <>
-      <div className="text-red-600">Hello World!</div>
+      <ToDo />
     </>
   );
 }
