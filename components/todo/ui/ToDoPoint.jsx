@@ -1,6 +1,6 @@
 import { formatDate } from "../model/formatDate";
 
-export function ToDoPoint({ todo, onClick }) {
+export function ToDoPoint({ todo, toggleBtn, removeBtn }) {
   return (
     <div className="flex items-center w-[32rem] justify-between rounded bg-gray-50 px-8 py-6">
       <div>
@@ -8,16 +8,19 @@ export function ToDoPoint({ todo, onClick }) {
         <p className="text-sm text-gray-500">{formatDate(todo.id)}</p>
       </div>
       <div className="flex gap-2">
-        <CompleteIcon onClick={onClick} complete={todo.complete} />
-        <RemoveBtn />
+        <CompleteIcon onClick={toggleBtn} complete={todo.complete} />
+        <RemoveBtn onClick={removeBtn} />
       </div>
     </div>
   );
 }
 
-function RemoveBtn() {
+function RemoveBtn({ onClick }) {
   return (
-    <button className="inline-flex items-center h-8 w-8 p-2 rounded-full text-xs font-semibold text-gray-500">
+    <button
+      onClick={onClick}
+      className="inline-flex items-center h-8 w-8 p-2 rounded-full text-xs font-semibold text-gray-500"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         x="0px"

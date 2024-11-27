@@ -16,7 +16,7 @@ export function ToDo() {
     <ToDoLayout>
       <ToDoTitle title="ToDo" />
       <ToDoInput
-        onSubmit={(e) => handleSubmitInput({ e, dispatch })}
+        onSubmit={(e) => handleSubmitInput({ e, dispatch, setTextInput })}
         onChange={(e) => handleChangeInput({ e, setTextInput })}
         textInput={textInput}
         placeholder="Введите задачу..."
@@ -24,7 +24,10 @@ export function ToDo() {
       {todos?.map((todo) => {
         return (
           <ToDoPoint
-            onClick={(e) =>
+            removeBtn={(e) =>
+              dispatch({ type: ACTIONS.RM_TODO, payload: { id: todo.id } })
+            }
+            toggleBtn={(e) =>
               dispatch({ type: ACTIONS.TOGGLE_TODO, payload: { id: todo.id } })
             }
             key={todo.id}
