@@ -1,3 +1,3 @@
-export function ToDoTitle() {
-  return <div className="">Todo</div>;
+export function ToDoTitle({ title }) {
+  return <div>{title}</div>;
 }
