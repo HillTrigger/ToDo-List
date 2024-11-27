@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* В styles.css или глобальных стилях */
+html,
+body {
+  height: 100%; /* Обеспечивает, что body займет всю высоту */
+  margin: 0; /* Убирает отступы */
+  background-color: #e5e7eb; /* Цвет, аналогичный bg-gray-200 */
+}
