@@ -5,7 +5,7 @@ export function ToDoInput({ textInput, onChange, onSubmit, ...htmlProps }) {
         onChange={onChange}
         type="text"
         value={textInput}
-        className="text-4xl p-2 rounded-md border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
+        className="border w-[32rem] p-2 rounded-md border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
         {...htmlProps}
       />
     </form>
