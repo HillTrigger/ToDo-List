@@ -1,11 +1,12 @@
-export function ToDoInput({ textInput, onChange, onSubmit }) {
+export function ToDoInput({ textInput, onChange, onSubmit, ...htmlProps }) {
   return (
     <form onSubmit={onSubmit} className="flex items-center gap-2">
       <input
         onChange={onChange}
         type="text"
         value={textInput}
-        className="border-black border"
+        className="text-4xl p-2 rounded-md border-gray-300 shadow-sm focus:border-primary-400 focus:ring focus:ring-primary-200 focus:ring-opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500"
+        {...htmlProps}
       />
     </form>
   );
