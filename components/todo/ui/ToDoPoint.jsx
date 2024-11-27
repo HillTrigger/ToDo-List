@@ -2,10 +2,10 @@ import { formatDate } from "../model/formatDate";
 
 export function ToDoPoint({ todo, onClick }) {
   return (
-    <div className="flex text-3xl items-center w-[500px] justify-between">
+    <div className="flex items-center w-[32rem] justify-between rounded bg-gray-50 px-8 py-6">
       <div>
-        <h2>{todo.name}</h2>
-        <p className="text-xs text-gray-400">{formatDate(todo.id)}</p>
+        <h2 className="text-gray-800 text-2xl">{todo.name}</h2>
+        <p className="text-sm text-gray-500">{formatDate(todo.id)}</p>
       </div>
       <CompleteIcon onClick={onClick} complete={todo.complete} />
     </div>
