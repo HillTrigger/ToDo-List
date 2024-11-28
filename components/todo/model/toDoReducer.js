@@ -13,11 +13,9 @@ export function toDoReducer(todos, action) {
     case ACTIONS.TOGGLE_TODO: {
       return todos.map((todo) => {
         if (todo.id === action.payload.id) {
-          console.log(todo.complete);
           return { ...todo, complete: !todo.complete };
         } else {
-          console.log(todo.complete);
-          return { ...todo };
+          return todo;
         }
       });
     }
@@ -26,10 +24,11 @@ export function toDoReducer(todos, action) {
     }
     case ACTIONS.TOGGLE_EDIT: {
       return todos.map((todo) => {
+        if (todo.complete) return todo;
         if (todo.id === action.payload.id) {
           return { ...todo, isEdit: !todo.isEdit };
         } else {
-          return { ...todo };
+          return todo;
         }
       });
     }
@@ -38,7 +37,7 @@ export function toDoReducer(todos, action) {
         if (todo.id === action.payload.id) {
           return { ...todo, name: action.payload.name };
         } else {
-          return { ...todo };
+          return todo;
         }
       });
     }
