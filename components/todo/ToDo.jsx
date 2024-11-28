@@ -24,12 +24,20 @@ export function ToDo() {
       {todos?.map((todo) => {
         return (
           <ToDoPoint
-            dispatch={dispatch}
-            removeBtn={(e) =>
+            changeInput={(e) =>
+              dispatch({
+                type: ACTIONS.CHANGE_TODO,
+                payload: { id: todo.id, name: e.target.value },
+              })
+            }
+            removeBtn={() =>
               dispatch({ type: ACTIONS.RM_TODO, payload: { id: todo.id } })
             }
-            toggleBtn={(e) =>
+            toggleBtn={() =>
               dispatch({ type: ACTIONS.TOGGLE_TODO, payload: { id: todo.id } })
+            }
+            toggleEdit={() =>
+              dispatch({ type: ACTIONS.TOGGLE_EDIT, payload: { id: todo.id } })
             }
             key={todo.id}
             todo={todo}

@@ -2,19 +2,44 @@ import clsx from "clsx";
 import { formatDate } from "../model/formatDate";
 import { ACTIONS } from "../constans";
 
-export function ToDoPoint({ todo, toggleBtn, removeBtn, dispatch }) {
+export function ToDoPoint({
+  todo,
+  toggleBtn,
+  removeBtn,
+  toggleEdit,
+  changeInput,
+}) {
   return (
     <div className="flex items-center w-[32rem] w- justify-between rounded bg-gray-50 px-8 py-6">
       <div>
-        <h2
-          onClick={(e) => editStart(e, dispatch, todo.id)}
-          className={clsx(
-            todo.complete && "line-through decoration-2",
-            "text-gray-800 text-2xl"
-          )}
-        >
-          {todo.name}
-        </h2>
+        {todo.isEdit ? (
+          <input
+            type="text"
+            value={todo.name}
+            className={clsx(
+              todo.complete && "line-through decoration-2",
+              "text-gray-800 text-2xl"
+            )}
+            onChange={changeInput}
+            onBlur={toggleEdit}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                toggleEdit();
+              }
+            }}
+            autoFocus
+          />
+        ) : (
+          <h2
+            onClick={toggleEdit}
+            className={clsx(
+              todo.complete && "line-through decoration-2",
+              "text-gray-800 text-2xl"
+            )}
+          >
+            {todo.name}
+          </h2>
+        )}
         <p className="text-sm text-gray-500">{formatDate(todo.id)}</p>
       </div>
       <div className="flex gap-2">
@@ -25,22 +50,22 @@ export function ToDoPoint({ todo, toggleBtn, removeBtn, dispatch }) {
   );
 }
 
-function editStart(e, dispatch, id) {
-  let todo = e.target;
-  let area = document.createElement("input");
-  area.value = todo.innerHTML;
-  area.className = "text-gray-800 text-2xl w-fit";
+// function editStart(e, dispatch, todo) {
+//   let todoEl = e.target;
+//   let area = document.createElement("input");
+//   area.value = todoEl.innerHTML;
+//   area.className = "text-gray-800 text-2xl w-fit";
 
-  area.onblur = function () {
-    dispatch({
-      type: ACTIONS.CHANGE_TODO,
-      payload: { id: id, name: area.value },
-    });
-  };
+//   area.onblur = function () {
+//     dispatch({
+//       type: ACTIONS.CHANGE_TODO,
+//       payload: { id: todo.id, name: area.value },
+//     });
+//   };
 
-  todo.replaceWith(area);
-  area.focus();
-}
+//   todoEl.replaceWith(area);
+//   area.focus();
+// }
 
 function RemoveBtn({ onClick }) {
   return (
@@ -77,9 +102,9 @@ function CompleteIcon({ onClick, complete = false }) {
           className="h-3 w-3"
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           />
         </svg>
         complete

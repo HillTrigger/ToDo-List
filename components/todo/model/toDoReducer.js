@@ -1,7 +1,7 @@
 import { ACTIONS } from "../constans";
 
 function newToDo({ name }) {
-  return { id: Date.now(), name: name, complete: false };
+  return { id: Date.now(), name: name, complete: false, isEdit: false };
 }
 
 export function toDoReducer(todos, action) {
@@ -22,8 +22,16 @@ export function toDoReducer(todos, action) {
       });
     }
     case ACTIONS.RM_TODO: {
-      console.log("delete");
       return todos.filter((todo) => todo.id !== action.payload.id);
+    }
+    case ACTIONS.TOGGLE_EDIT: {
+      return todos.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return { ...todo, isEdit: !todo.isEdit };
+        } else {
+          return { ...todo };
+        }
+      });
     }
     case ACTIONS.CHANGE_TODO: {
       return todos.map((todo) => {
