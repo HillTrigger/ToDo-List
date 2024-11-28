@@ -24,6 +24,7 @@ export function ToDo() {
       {todos?.map((todo) => {
         return (
           <ToDoPoint
+            dispatch={dispatch}
             removeBtn={(e) =>
               dispatch({ type: ACTIONS.RM_TODO, payload: { id: todo.id } })
             }

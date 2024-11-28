@@ -1,10 +1,20 @@
+import clsx from "clsx";
 import { formatDate } from "../model/formatDate";
+import { ACTIONS } from "../constans";
 
-export function ToDoPoint({ todo, toggleBtn, removeBtn }) {
+export function ToDoPoint({ todo, toggleBtn, removeBtn, dispatch }) {
   return (
-    <div className="flex items-center w-[32rem] justify-between rounded bg-gray-50 px-8 py-6">
+    <div className="flex items-center w-[32rem] w- justify-between rounded bg-gray-50 px-8 py-6">
       <div>
-        <h2 className="text-gray-800 text-2xl">{todo.name}</h2>
+        <h2
+          onClick={(e) => editStart(e, dispatch, todo.id)}
+          className={clsx(
+            todo.complete && "line-through decoration-2",
+            "text-gray-800 text-2xl"
+          )}
+        >
+          {todo.name}
+        </h2>
         <p className="text-sm text-gray-500">{formatDate(todo.id)}</p>
       </div>
       <div className="flex gap-2">
@@ -13,6 +23,23 @@ export function ToDoPoint({ todo, toggleBtn, removeBtn }) {
       </div>
     </div>
   );
+}
+
+function editStart(e, dispatch, id) {
+  let todo = e.target;
+  let area = document.createElement("input");
+  area.value = todo.innerHTML;
+  area.className = "text-gray-800 text-2xl w-fit";
+
+  area.onblur = function () {
+    dispatch({
+      type: ACTIONS.CHANGE_TODO,
+      payload: { id: id, name: area.value },
+    });
+  };
+
+  todo.replaceWith(area);
+  area.focus();
 }
 
 function RemoveBtn({ onClick }) {

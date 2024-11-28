@@ -25,6 +25,15 @@ export function toDoReducer(todos, action) {
       console.log("delete");
       return todos.filter((todo) => todo.id !== action.payload.id);
     }
+    case ACTIONS.CHANGE_TODO: {
+      return todos.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return { ...todo, name: action.payload.name };
+        } else {
+          return { ...todo };
+        }
+      });
+    }
 
     default:
       return todos;
