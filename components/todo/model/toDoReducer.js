@@ -4,45 +4,59 @@ function newToDo({ name }) {
   return { id: Date.now(), name: name, complete: false, isEdit: false };
 }
 
-export function toDoReducer(todos, action) {
+export function toDoReducer(todoState, action) {
   switch (action.type) {
     case ACTIONS.ADD_TODO: {
-      const todo = action.payload;
-      return [...todos, newToDo({ name: todo.name })];
+      return {
+        ...todoState,
+        todos: [...todoState.todos, newToDo({ name: action.payload.name })],
+      };
     }
     case ACTIONS.TOGGLE_TODO: {
-      return todos.map((todo) => {
-        if (todo.id === action.payload.id) {
-          return { ...todo, complete: !todo.complete };
-        } else {
-          return todo;
-        }
-      });
+      return {
+        ...todoState,
+        todos: todoState.todos.map((todo) => {
+          if (todo.id === action.payload.id) {
+            return { ...todo, complete: !todo.complete };
+          } else {
+            return todo;
+          }
+        }),
+      };
     }
     case ACTIONS.RM_TODO: {
-      return todos.filter((todo) => todo.id !== action.payload.id);
-    }
-    case ACTIONS.TOGGLE_EDIT: {
-      return todos.map((todo) => {
-        if (todo.complete) return todo;
-        if (todo.id === action.payload.id) {
-          return { ...todo, isEdit: !todo.isEdit };
-        } else {
-          return todo;
-        }
-      });
+      return {
+        ...todoState,
+        todos: todoState.todos.filter((todo) => todo.id !== action.payload.id),
+      };
     }
     case ACTIONS.CHANGE_TODO: {
-      return todos.map((todo) => {
-        if (todo.id === action.payload.id) {
-          return { ...todo, name: action.payload.name };
-        } else {
-          return todo;
-        }
-      });
+      return {
+        ...todoState,
+        todos: todoState.todos.map((todo) => {
+          if (todo.id === action.payload.id) {
+            return { ...todo, name: action.payload.name };
+          } else {
+            return todo;
+          }
+        }),
+      };
+    }
+    case ACTIONS.TOGGLE_EDIT: {
+      return {
+        ...todoState,
+        todos: todoState.todos.map((todo) => {
+          if (todo.complete) return todo;
+          if (todo.id === action.payload.id) {
+            return { ...todo, isEdit: !todo.isEdit };
+          } else {
+            return todo;
+          }
+        }),
+      };
     }
 
     default:
-      return todos;
+      return todoState;
   }
 }

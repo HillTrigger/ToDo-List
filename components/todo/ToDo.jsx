@@ -7,12 +7,17 @@ import { ToDoTitle } from "./ui/ToDoTitle";
 import { handleChangeInput } from "./model/handleChangeInput";
 import { toDoReducer } from "./model/todoReducer";
 import { ToDoPoint } from "./ui/ToDoPoint";
-import { ACTIONS } from "./constans";
 import { handleSubmitInput } from "./model/handleSubmitInput";
+import { UiSelect } from "../uikit/fields/UiSelect";
+import { TodosLayout } from "./ui/TodosLayout";
+import { ACTIONS } from "./constans";
 
 export function ToDo() {
   const [textInput, setTextInput] = useState("");
-  const [todos, dispatch] = useReducer(toDoReducer, []);
+  const [todoState, dispatch] = useReducer(toDoReducer, {
+    todos: [],
+    sortMethod: null,
+  });
 
   return (
     <ToDoLayout>
@@ -23,29 +28,45 @@ export function ToDo() {
         textInput={textInput}
         placeholder="Введите задачу..."
       />
-      {todos?.map((todo) => {
-        return (
-          <ToDoPoint
-            changeInput={(e) =>
-              dispatch({
-                type: ACTIONS.CHANGE_TODO,
-                payload: { id: todo.id, name: e.target.value },
-              })
-            }
-            removeBtn={() =>
-              dispatch({ type: ACTIONS.RM_TODO, payload: { id: todo.id } })
-            }
-            toggleBtn={() =>
-              dispatch({ type: ACTIONS.TOGGLE_TODO, payload: { id: todo.id } })
-            }
-            toggleEdit={() =>
-              dispatch({ type: ACTIONS.TOGGLE_EDIT, payload: { id: todo.id } })
-            }
-            key={todo.id}
-            todo={todo}
-          />
-        );
-      })}
+      {/* <UiSelect
+        settings={[
+          { id: 1, name: "Ближайшие" },
+          { id: 2, name: "Невыполнены" },
+          { id: 3, name: "Завершены" },
+        ]}
+      /> */}
+
+      <TodosLayout>
+        {todoState.todos?.map((todo) => {
+          return (
+            <ToDoPoint
+              changeInput={(e) =>
+                dispatch({
+                  type: ACTIONS.CHANGE_TODO,
+                  payload: { id: todo.id, name: e.target.value },
+                })
+              }
+              removeBtn={() =>
+                dispatch({ type: ACTIONS.RM_TODO, payload: { id: todo.id } })
+              }
+              toggleBtn={() =>
+                dispatch({
+                  type: ACTIONS.TOGGLE_TODO,
+                  payload: { id: todo.id },
+                })
+              }
+              toggleEdit={() =>
+                dispatch({
+                  type: ACTIONS.TOGGLE_EDIT,
+                  payload: { id: todo.id },
+                })
+              }
+              key={todo.id}
+              todo={todo}
+            />
+          );
+        })}
+      </TodosLayout>
     </ToDoLayout>
   );
 }

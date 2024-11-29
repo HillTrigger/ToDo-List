@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { formatDate } from "../model/formatDate";
-import { ACTIONS } from "../constans";
 
 export function ToDoPoint({
   todo,
