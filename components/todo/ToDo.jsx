@@ -1,3 +1,5 @@
+"use client";
+
 import { useReducer, useState } from "react";
 import { ToDoInput } from "./ui/ToDoInput";
 import { ToDoLayout } from "./ui/ToDoLayout";
