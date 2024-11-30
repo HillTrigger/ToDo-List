@@ -4,4 +4,5 @@ export const ACTIONS = {
   RM_TODO: "removeToDo",
   CHANGE_TODO: "changeToDo",
   TOGGLE_EDIT: "toggleEdit",
+  CHANGE_SORT_METHOD: "changeSortMethod",
 };

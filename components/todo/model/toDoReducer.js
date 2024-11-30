@@ -55,7 +55,12 @@ export function toDoReducer(todoState, action) {
         }),
       };
     }
-
+    case ACTIONS.CHANGE_SORT_METHOD: {
+      return {
+        ...todoState,
+        sortMethod: { ...action.payload.sortMethod },
+      };
+    }
     default:
       return todoState;
   }

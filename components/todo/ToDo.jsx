@@ -16,9 +16,8 @@ export function ToDo() {
   const [textInput, setTextInput] = useState("");
   const [todoState, dispatch] = useReducer(toDoReducer, {
     todos: [],
-    sortMethod: null,
+    sortMethod: { id: 1, name: "По Дате" },
   });
-
   return (
     <ToDoLayout>
       <ToDoTitle title="ToDo" />
@@ -28,14 +27,20 @@ export function ToDo() {
         textInput={textInput}
         placeholder="Введите задачу..."
       />
-      {/* <UiSelect
+      <UiSelect
+        selected={todoState.sortMethod}
+        onChange={(sortMethod) =>
+          dispatch({
+            type: ACTIONS.CHANGE_SORT_METHOD,
+            payload: { sortMethod },
+          })
+        }
         settings={[
-          { id: 1, name: "Ближайшие" },
+          { id: 1, name: "По Дате" },
           { id: 2, name: "Невыполнены" },
           { id: 3, name: "Завершены" },
         ]}
-      /> */}
-
+      />
       <TodosLayout>
         {todoState.todos?.map((todo) => {
           return (
