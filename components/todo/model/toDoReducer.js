@@ -59,9 +59,24 @@ export function toDoReducer(todoState, action) {
       return {
         ...todoState,
         sortMethod: { ...action.payload.sortMethod },
+        todos: sortTodos(todoState.todos, action.payload.sortMethod.id),
       };
     }
     default:
       return todoState;
+  }
+}
+
+function sortTodos(todos, sortMethodId) {
+  switch (sortMethodId) {
+    case 1:
+      return [...todos].sort((a, b) => a.id - b.id);
+    case 2:
+      return [...todos].sort((a) => (a.complete ? 1 : -1));
+    case 3:
+      return [...todos].sort((a) => (a.complete ? -1 : 1));
+    default:
+      console.log("error sortTodos");
+      return todos;
   }
 }
