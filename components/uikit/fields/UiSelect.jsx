@@ -6,9 +6,9 @@ import {
 } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/20/solid";
 import clsx from "clsx";
-import { useState } from "react";
 
-export function UiSelect({ settings, selected, onChange }) {
+export function UiSelect({ settings, selected, onChange, todosIsEmpty }) {
+  if (todosIsEmpty) return null;
   return (
     <div className="w-32 ml-auto text-black">
       <Listbox value={selected} onChange={onChange}>

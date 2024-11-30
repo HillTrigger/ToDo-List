@@ -9,7 +9,7 @@ export function ToDoPoint({
   changeInput,
 }) {
   return (
-    <div className="flex items-center w-[32rem] w- justify-between rounded bg-gray-50 px-8 py-6">
+    <div className="flex items-center  justify-between rounded bg-gray-50 px-8 py-6">
       <div>
         {todo.isEdit ? (
           <input

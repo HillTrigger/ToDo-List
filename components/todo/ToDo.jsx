@@ -18,6 +18,8 @@ export function ToDo() {
     todos: [],
     sortMethod: { id: 1, name: "По Дате" },
   });
+  const todosIsEmpty = !todoState.todos.length;
+
   return (
     <ToDoLayout>
       <ToDoTitle title="ToDo" />
@@ -28,6 +30,7 @@ export function ToDo() {
         placeholder="Введите задачу..."
       />
       <UiSelect
+        todosIsEmpty={todosIsEmpty}
         selected={todoState.sortMethod}
         onChange={(sortMethod) =>
           dispatch({
@@ -41,7 +44,7 @@ export function ToDo() {
           { id: 3, name: "Завершены" },
         ]}
       />
-      <TodosLayout>
+      <TodosLayout todosIsEmpty={todosIsEmpty}>
         {todoState.todos?.map((todo) => {
           return (
             <ToDoPoint
