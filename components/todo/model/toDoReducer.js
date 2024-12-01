@@ -7,13 +7,15 @@ function newToDo({ name }) {
 export function toDoReducer(todoState, action) {
   switch (action.type) {
     case ACTIONS.ADD_TODO: {
-      return {
+      const newTodoState = {
         ...todoState,
         todos: [...todoState.todos, newToDo({ name: action.payload.name })],
       };
+      loadDataToLocalStorage(newTodoState);
+      return newTodoState;
     }
     case ACTIONS.TOGGLE_TODO: {
-      return {
+      const newTodoState = {
         ...todoState,
         todos: todoState.todos.map((todo) => {
           if (todo.id === action.payload.id) {
@@ -23,15 +25,19 @@ export function toDoReducer(todoState, action) {
           }
         }),
       };
+      loadDataToLocalStorage(newTodoState);
+      return newTodoState;
     }
     case ACTIONS.RM_TODO: {
-      return {
+      const newTodoState = {
         ...todoState,
         todos: todoState.todos.filter((todo) => todo.id !== action.payload.id),
       };
+      loadDataToLocalStorage(newTodoState);
+      return newTodoState;
     }
     case ACTIONS.CHANGE_TODO: {
-      return {
+      const newTodoState = {
         ...todoState,
         todos: todoState.todos.map((todo) => {
           if (todo.id === action.payload.id) {
@@ -41,9 +47,11 @@ export function toDoReducer(todoState, action) {
           }
         }),
       };
+      loadDataToLocalStorage(newTodoState);
+      return newTodoState;
     }
     case ACTIONS.TOGGLE_EDIT: {
-      return {
+      const newTodoState = {
         ...todoState,
         todos: todoState.todos.map((todo) => {
           if (todo.complete) return todo;
@@ -54,13 +62,17 @@ export function toDoReducer(todoState, action) {
           }
         }),
       };
+      loadDataToLocalStorage(newTodoState);
+      return newTodoState;
     }
     case ACTIONS.CHANGE_SORT_METHOD: {
-      return {
+      const newTodoState = {
         ...todoState,
         sortMethod: { ...action.payload.sortMethod },
         todos: sortTodos(todoState.todos, action.payload.sortMethod.id),
       };
+      loadDataToLocalStorage(newTodoState);
+      return newTodoState;
     }
     default:
       return todoState;
@@ -90,5 +102,13 @@ function sortTodos(todos, sortMethodId) {
     default:
       console.log("error sortTodos");
       return todos;
+  }
+}
+
+function loadDataToLocalStorage(todoState) {
+  try {
+    window.localStorage.setItem("todoStateData", JSON.stringify(todoState));
+  } catch (error) {
+    console.error("Failed to save data to Local Storage:", error);
   }
 }
