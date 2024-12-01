@@ -74,6 +74,18 @@ export function toDoReducer(todoState, action) {
       loadDataToLocalStorage(newTodoState);
       return newTodoState;
     }
+    case ACTIONS.GET_DATA: {
+      const savedData = window.localStorage.getItem("todoStateData");
+      if (!savedData) {
+        return todoState;
+      }
+      try {
+        return JSON.parse(savedData);
+      } catch (error) {
+        console.error("Ошибка при разборе данных из localStorage:", error);
+        return todoState;
+      }
+    }
     default:
       return todoState;
   }

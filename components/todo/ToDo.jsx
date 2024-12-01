@@ -1,6 +1,6 @@
 "use client";
 
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { ToDoInput } from "./ui/ToDoInput";
 import { ToDoLayout } from "./ui/ToDoLayout";
 import { ToDoTitle } from "./ui/ToDoTitle";
@@ -19,6 +19,10 @@ export function ToDo() {
     sortMethod: { id: 1, name: "По Дате" },
   });
   const todosIsEmpty = !todoState.todos.length;
+
+  useEffect(() => {
+    dispatch({ type: ACTIONS.GET_DATA });
+  }, []);
 
   return (
     <ToDoLayout>

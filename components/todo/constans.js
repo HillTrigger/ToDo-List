@@ -5,4 +5,5 @@ export const ACTIONS = {
   CHANGE_TODO: "changeToDo",
   TOGGLE_EDIT: "toggleEdit",
   CHANGE_SORT_METHOD: "changeSortMethod",
+  GET_DATA: "getdata",
 };
