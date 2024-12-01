@@ -5,11 +5,7 @@ import { ToDoInput } from "./ui/ToDoInput";
 import { ToDoLayout } from "./ui/ToDoLayout";
 import { ToDoTitle } from "./ui/ToDoTitle";
 import { handleChangeInput } from "./model/handleChangeInput";
-import {
-  initialTodoState,
-  toDoReducer,
-  usePersistReducer,
-} from "./model/todoReducer";
+import { toDoReducer } from "./model/todoReducer";
 import { ToDoPoint } from "./ui/ToDoPoint";
 import { handleSubmitInput } from "./model/handleSubmitInput";
 import { UiSelect } from "../uikit/fields/UiSelect";
@@ -18,16 +14,11 @@ import { ACTIONS } from "./constans";
 
 export function ToDo() {
   const [textInput, setTextInput] = useState("");
-  // const [todoState, dispatch] = useReducer(
-  //   toDoReducer,
-  //   {
-  //     todos: [],
-  //     sortMethod: { id: 1, name: "По Дате" },
-  //   },
-  //   initialTodoState
-  // );
-  const [todoState, dispatch] = usePersistReducer();
-  const todosIsEmpty = !todoState?.todos?.length;
+  const [todoState, dispatch] = useReducer(toDoReducer, {
+    todos: [],
+    sortMethod: { id: 1, name: "По Дате" },
+  });
+  const todosIsEmpty = !todoState.todos.length;
 
   return (
     <ToDoLayout>
