@@ -1,3 +1,3 @@
 # ToDo-List
 
-Посмотреть на проект можно по ссылке: https://todo-list.hilltrigger.ru/
+Посмотреть на проект можно по ссылке: https://hilltrigger.github.io/React-ToDo-WebPack/
